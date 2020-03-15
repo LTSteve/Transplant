@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
 
     public static PlayerController Instance = null;
@@ -129,5 +129,10 @@ public class PlayerController : MonoBehaviour
         proj.Trajectory = camera.forward * ProjectileSpeed;
 
         GunSource.PlayOneShot(Gunshot);
+    }
+
+    public void Damage()
+    {
+        //throw new System.NotImplementedException();
     }
 }

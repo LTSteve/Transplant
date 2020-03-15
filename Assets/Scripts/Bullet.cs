@@ -39,16 +39,15 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        var friendlyHit = Friendly && (collision.rigidbody != null && collision.rigidbody.gameObject != null && collision.rigidbody.gameObject.GetComponent<PlayerController>() != null);
-
-        if (friendlyHit)
-        {
-            return;
-        }
-
         Instantiate(Boom, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
 
         //do damage
+        IDamageable myBoi;
+        if ((myBoi = collision.gameObject.GetComponent<EnemyController>()) != null
+            || (myBoi = collision.gameObject.GetComponent<PlayerController>()) != null)
+        {
+            myBoi.Damage();
+        }
     }
 }
