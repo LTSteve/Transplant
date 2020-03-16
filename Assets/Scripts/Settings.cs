@@ -12,6 +12,10 @@ public class Settings : MonoBehaviour
     public static bool ScreenFlash = true;
 
     public Transform PauseMenu;
+    public AudioSource PauseMenuAudio;
+
+    public AudioClip MenuOpen;
+    public AudioClip MenuClose;
 
     private void Start()
     {
@@ -46,6 +50,8 @@ public class Settings : MonoBehaviour
     public void OpenClose()
     {
         Active = !Active;
+
+        PauseMenuAudio.PlayOneShot(Active ? MenuOpen : MenuClose);
 
         PauseMenu.gameObject.SetActive(Active);
 

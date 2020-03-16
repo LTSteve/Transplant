@@ -15,14 +15,19 @@ public class EnemySpawner : MonoBehaviour
     public float ActivationRange = 200f;
     public float DeactivationRange = 220f;
 
+    public float EnemyLimit = 15f;
+    public float EnemyLimitGrowth = 15f;
+
     private bool activatable = true;
 
     private void Start()
     {
         var doneness = (100f - WorldGenerator.CurrentBossCountDown) / 100f;
 
+        var currentEnemyLimit = EnemyLimit + doneness * EnemyLimitGrowth;
+
         ActiveChance += doneness * ActiveChanceScaling;
-        if(Random.value > (ActiveChance / 100f))
+        if(Enemies.Count >= currentEnemyLimit || Random.value > (ActiveChance / 100f))
         {
             Destroy(this.gameObject);
         }

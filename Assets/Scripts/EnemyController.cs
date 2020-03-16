@@ -7,6 +7,25 @@ public class EnemyController : MonoBehaviour, IDamageable
 {
     public static List<EnemyController> Enemies = new List<EnemyController>();
 
+    public static List<EnemyController> Corpses = new List<EnemyController>();
+
+    public static void AddCorpse(EnemyController corpse)
+    {
+        Corpses.Add(corpse);
+
+        if (Enemies.Contains(corpse))
+        {
+            Enemies.Remove(corpse);
+        }
+
+        if(Corpses.Count > 20)
+        {
+            var toCleanup = Corpses[0];
+            Corpses.RemoveAt(0);
+            toCleanup.Cleanup();
+        }
+    }
+
     public float MoveSpeed = 10f;
     public float AccelerationTime = 0.25f;
     public float RotationSpeed = 10f;
@@ -124,10 +143,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void HandleMovement()
     {
         var targetLocation = Vector3.zero;
+        var playerPosition = PlayerController.Instance.transform.position;
 
         if (triggered)
         {
-            var playerPosition = PlayerController.Instance.transform.position;
             targetLocation = transform.position;
 
             if (Vector3.Distance(playerPosition, transform.position) > MaxAttackRange)
@@ -151,6 +170,11 @@ public class EnemyController : MonoBehaviour, IDamageable
             targetLocation = Brain.GetWanderPoint() + transform.position;
         }
 
+        if(Vector3.Distance(playerPosition, transform.position) > 1000){
+            Cleanup();
+            return;
+        }
+
         var facingDirection = targetLocation == transform.position ? Vector3.zero : (targetLocation - transform.position).normalized;
 
         var up = facingDirection.z;
@@ -162,6 +186,14 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
 
         targetVelocity = transform.right * MoveSpeed * right + transform.forward * up * MoveSpeed;
+    }
+
+    public void Cleanup()
+    {
+        if(Enemies.Contains(this))
+            Enemies.Remove(this);
+        Destroy(this.gameObject);
+        return;
     }
 
     private void HandleAim()
@@ -266,6 +298,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         Colorizer.Oof();
 
         GetComponent<Collider>().enabled = false;
+
+        AddCorpse(this);
     }
 
     public void Damage()
@@ -289,6 +323,8 @@ public class EnemyController : MonoBehaviour, IDamageable
             WorldGenerator.CurrentBossCountDown -= BossValue;
             Colorizer.Oof();
             GetComponent<Collider>().enabled = false;
+
+            AddCorpse(this);
         }
         else
         {

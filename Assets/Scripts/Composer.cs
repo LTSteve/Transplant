@@ -58,6 +58,7 @@ public class Composer : MonoBehaviour
         }
         else
         {
+
             if (paused)
             {
                 paused = false;
@@ -89,7 +90,7 @@ public class Composer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Settings.Active)
+        if (Settings.Active || paused)
         {
             return;
         }
