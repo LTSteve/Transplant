@@ -30,8 +30,10 @@ public class UIController : MonoBehaviour
         Instance = this;
     }
 
-    public void UpdateAmmoBlips(int increment = -999)
+    public bool UpdateAmmoBlips(int increment = -999)
     {
+        var toReturn = AmmoCount > 0;
+
         AmmoCount += increment;
 
         if(AmmoCount < 0)
@@ -56,6 +58,8 @@ public class UIController : MonoBehaviour
         }
 
         SpatterIcon.gameObject.SetActive(AmmoCount == 11);
+
+        return toReturn;
     }
 
     public void DoBeatThings()

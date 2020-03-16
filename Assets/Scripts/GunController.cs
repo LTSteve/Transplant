@@ -10,6 +10,8 @@ public class GunController : MonoBehaviour
 
     private float shooting = -1f;
 
+    private bool specialShot = false;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -18,12 +20,18 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerController.Instance == null)
+        if (Settings.Active || PlayerController.Instance == null)
         {
             return;
         }
 
-        var isShooting = Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") || Input.GetMouseButtonDown(0) || Input.GetMouseButton(0);
+        var firstClick = Input.GetButtonDown("Fire1") || Input.GetMouseButtonDown(0);
+        var isShooting = firstClick || Input.GetButton("Fire1") || Input.GetMouseButton(0);
+
+        if(firstClick && Composer.Instance.CheckTiming())
+        {
+            specialShot = true;
+        }
 
         animator.SetBool("Shooting", isShooting);
         animator.SetBool("Moving", PlayerController.Instance.IsMoving);
@@ -31,6 +39,8 @@ public class GunController : MonoBehaviour
         var hasAmmo = UIController.Instance.AmmoCount > 0;
 
         Bam.SetBool("Shooting", isShooting && hasAmmo);
+
+        shooting -= Time.deltaTime;
 
         if (isShooting && hasAmmo)
         {
@@ -40,11 +50,21 @@ public class GunController : MonoBehaviour
         {
             Bam.SetBool("Restart", false);
         }
+
+        if(isShooting && !hasAmmo)
+        {
+            PlayerController.Instance.DoShoot(specialShot, false);
+        }
+
+        specialShot = false;
     }
 
     private void RunShootingLogic()
     {
-        shooting -= Time.deltaTime;
+        if (specialShot)
+        {
+            shooting = 0f;
+        }
 
         if (shooting <= 0f)
         {
@@ -53,7 +73,7 @@ public class GunController : MonoBehaviour
             shooting = (60f / PlayerController.Instance.ShotsPerBeat) / Composer.Instance.BPM;
 
             Bam.SetBool("Restart", true);
-            PlayerController.Instance.DoShoot();
+            PlayerController.Instance.DoShoot(specialShot, true);
         }
         else
         {

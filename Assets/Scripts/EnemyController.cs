@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if(PlayerController.Instance == null || Dead || !PlayerController.Instance.WindupIsOver)
+        if(Settings.Active || PlayerController.Instance == null || Dead || !PlayerController.Instance.WindupIsOver)
         {
             return;
         }
@@ -80,9 +80,12 @@ public class EnemyController : MonoBehaviour, IDamageable
             MonsterSource.PlayOneShot(Cry, 1f);
         }
 
+        var inViewVec = PlayerController.Instance.MyCamera.WorldToViewportPoint(transform.position);
+        var inView = inViewVec.x >= 0 && inViewVec.x <= 1 && inViewVec.y >= 0 && inViewVec.y <= 1 && inViewVec.z > 0;
+
         HandleAim();
         HandleMovement();
-        Weapon.Handle(triggered && closeEnough, PlayerController.Instance.transform, ShootFrom, GetComponent<Collider>(), ShootFrom2);
+        Weapon.Handle(inView, triggered && closeEnough, PlayerController.Instance.transform, ShootFrom, GetComponent<Collider>(), ShootFrom2);
         HandlePhysics();
         HandleAnimators();
 
@@ -246,6 +249,25 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
     }
 
+    public void Kill()
+    {
+        if (Dead)
+        {
+            return;
+        }
+
+        foreach (var animator in SpriteAnimators)
+        {
+            animator.SetTrigger("Dead");
+        }
+        MonsterSource.PlayOneShot(Cry, 1f);
+        Dead = true;
+
+        Colorizer.Oof();
+
+        GetComponent<Collider>().enabled = false;
+    }
+
     public void Damage()
     {
         if (Dead)
@@ -259,21 +281,22 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             foreach(var animator in SpriteAnimators)
             {
-                MonsterSource.PlayOneShot(Cry, 1f);
                 animator.SetTrigger("Dead");
-                Dead = true;
-
-                WorldGenerator.CurrentBossCountDown -= BossValue;
             }
+            MonsterSource.PlayOneShot(Cry, 1f);
+            Dead = true;
+
+            WorldGenerator.CurrentBossCountDown -= BossValue;
             Colorizer.Oof();
+            GetComponent<Collider>().enabled = false;
         }
         else
         {
             foreach (var animator in SpriteAnimators)
             {
-                MonsterSource.PlayOneShot(Oof, 1f);
                 animator.SetTrigger("Oof");
             }
+            MonsterSource.PlayOneShot(Oof, 1f);
             Colorizer.Oof();
         }
     }

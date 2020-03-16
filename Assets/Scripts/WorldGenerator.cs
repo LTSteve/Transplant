@@ -10,11 +10,15 @@ public class WorldGenerator : MonoBehaviour
 
     public Transform RootBit;
 
+    public Transform BossPrefab;
+
     public static float CurrentBossCountDown = 100f;
 
     private Transform[,] currentWorld;
 
     private Vector3 center;
+
+    private bool completed = false;
 
     private void Start()
     {
@@ -66,11 +70,28 @@ public class WorldGenerator : MonoBehaviour
             return;
         }
 
+        if (!completed && WorldGenerator.CurrentBossCountDown <= 0)
+        {
+            foreach(var E in EnemyController.Enemies)
+            {
+                E.Kill();
+            }
+
+            Instantiate(BossPrefab, PlayerController.Instance.transform.position + Vector3.up * 10f, Quaternion.identity);
+
+            completed = true;
+        }
+
+
+        if (completed)
+        {
+            return;
+        }
+
         var playerTransform = PlayerController.Instance.transform;
 
         if(!generating && Vector3.Distance(center, playerTransform.position) > 200)
         {
-            Debug.Log("Let's go!");
             generating = true;
 
             var playerX = (int)Mathf.Round((playerTransform.position.x - center.x) / 200f);

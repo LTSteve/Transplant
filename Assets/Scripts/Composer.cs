@@ -11,9 +11,13 @@ public class Composer : MonoBehaviour
 
     public float BPM = 130f;
 
+    public float FudgeTime = 0.5f;
+
     private float timeSinceBeat = 0f;
     private float timeSinceWeakBeat = 0f;
-    private float beatLength;
+
+    [HideInInspector]
+    public float BeatLength;
 
     public bool Beat = false;
     public bool WeakBeat = false;
@@ -22,14 +26,53 @@ public class Composer : MonoBehaviour
     {
         Instance = this;
 
-        beatLength = 60f / BPM;
+        BeatLength = 60f / BPM;
 
         timeSinceBeat = -100f;
         timeSinceWeakBeat = -100f;
     }
 
+    private bool playing = false;
+    private bool paused = false;
+
     private void Update()
     {
+        if (Settings.Active)
+        {
+            if (!paused)
+            {
+                playing = SoundtrackSource.isPlaying;
+
+                if (playing)
+                {
+                    SoundtrackSource.Pause();
+                }
+                else
+                {
+                    SecondarySoundtrackSource.Pause();
+                }
+            }
+
+            paused = true;
+            return;
+        }
+        else
+        {
+            if (paused)
+            {
+                paused = false;
+
+
+                if (playing)
+                {
+                    SoundtrackSource.UnPause();
+                }
+                else
+                {
+                    SecondarySoundtrackSource.UnPause();
+                }
+            }
+        }
 
         UpdateBeatState();
 
@@ -46,13 +89,18 @@ public class Composer : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Settings.Active)
+        {
+            return;
+        }
+
         if ((!SecondarySoundtrackSource.isPlaying && !SoundtrackSource.isPlaying) ||
             (SoundtrackSource.isPlaying && SoundtrackSource.time + Time.fixedDeltaTime >= SoundtrackSource.clip.length))
         {
             SecondarySoundtrackSource.Play();
 
             timeSinceBeat = 0;
-            timeSinceWeakBeat = (beatLength / 4f);
+            timeSinceWeakBeat = (BeatLength / 4f);
 
             TextCrawl.WindUpOver = true;
         }
@@ -65,18 +113,18 @@ public class Composer : MonoBehaviour
 
         timeSinceBeat += Time.deltaTime;
 
-        if (timeSinceBeat > beatLength)
+        if (timeSinceBeat > BeatLength)
         {
-            timeSinceBeat %= beatLength;
+            timeSinceBeat %= BeatLength;
 
             Beat = true;
         }
 
         timeSinceWeakBeat += Time.deltaTime;
 
-        if (timeSinceWeakBeat > beatLength)
+        if (timeSinceWeakBeat > BeatLength)
         {
-            timeSinceWeakBeat %= beatLength;
+            timeSinceWeakBeat %= BeatLength;
 
             WeakBeat = true;
         }
@@ -90,5 +138,12 @@ public class Composer : MonoBehaviour
     private void DoWeakBeatThings()
     {
         UIController.Instance.DoWeakBeatThings();
+    }
+
+    public bool CheckTiming()
+    {
+        var time = timeSinceBeat > (BeatLength / 2f) ? (BeatLength - timeSinceBeat) : timeSinceBeat;
+
+        return time < FudgeTime;
     }
 }

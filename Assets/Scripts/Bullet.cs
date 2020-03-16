@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     public Image Image;
 
     public bool Friendly = true;
+    public bool Special = false;
     public Vector3 Trajectory = Vector3.zero;
 
     private Rigidbody body;
@@ -20,24 +21,66 @@ public class Bullet : MonoBehaviour
     private float targetRange;
     private Light light;
 
+    private float complete = 0f;
+
     private void Start()
     {
         light = GetComponent<Light>();
         targetRange = light.range;
         light.range = 0f;
 
+        complete = 0f;
+        Image.transform.localScale = new Vector3(complete, complete, complete);
+
         body = GetComponent<Rigidbody>();
         Init();
     }
 
+    private Vector3 storedVelocity = Vector3.zero;
+    private bool storedGravity = false;
+
+    private void FixedUpdate()
+    {
+        if (Settings.Active)
+        {
+            if (storedVelocity == Vector3.zero)
+            {
+                storedVelocity = body.velocity;
+                storedGravity = body.useGravity;
+
+                body.velocity = Vector3.zero;
+                body.useGravity = false;
+            }
+        }
+        else
+        {
+            if (storedVelocity != Vector3.zero)
+            {
+                body.velocity = storedVelocity;
+                body.useGravity = storedGravity;
+
+                storedVelocity = Vector3.zero;
+            }
+        }
+    }
+
     private void Update()
     {
-        if(light.range >= targetRange)
+        if (Settings.Active)
         {
             return;
         }
 
-        light.range += targetRange * Time.deltaTime;
+        if(complete >= 1f)
+        {
+            return;
+        }
+
+        complete += Time.deltaTime * 10f;
+
+        light.range = targetRange * complete;
+
+        Image.transform.localScale = new Vector3(complete, complete, complete);
     }
 
     public void Init()
@@ -63,7 +106,8 @@ public class Bullet : MonoBehaviour
         //do damage
         IDamageable myBoi;
         if ((myBoi = collision.gameObject.GetComponent<EnemyController>()) != null
-            || (myBoi = collision.gameObject.GetComponent<PlayerController>()) != null)
+            || (myBoi = collision.gameObject.GetComponent<PlayerController>()) != null
+            || (myBoi = collision.gameObject.GetComponent<BossController>()) != null)
         {
             myBoi.Damage();
         }

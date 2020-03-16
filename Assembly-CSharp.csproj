@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Billboard.cs" />
+    <Compile Include="Assets\Scripts\BossController.cs" />
+    <Compile Include="Assets\Scripts\BossKiller.cs" />
     <Compile Include="Assets\Scripts\Brain.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\Completion.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="Assets\Scripts\IDamageable.cs" />
     <Compile Include="Assets\Scripts\OofBoi.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Settings.cs" />
     <Compile Include="Assets\Scripts\SpriteBright.cs" />
     <Compile Include="Assets\Scripts\Suicidal.cs" />
     <Compile Include="Assets\Scripts\TextCrawl.cs" />
@@ -83,6 +86,12 @@
     <Compile Include="Assets\Scripts\WorldGenerator.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -96,29 +105,17 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
       <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
-      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
@@ -128,6 +125,12 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.DataPrivacy">
+      <HintPath>D:/Projects/Heartbeat/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Tools/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

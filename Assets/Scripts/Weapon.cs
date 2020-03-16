@@ -27,13 +27,15 @@ public class Weapon
 
     private Vector3 lastPlayerLocation = Vector3.zero;
 
-    public void Handle(bool shooting, Transform target, Transform me, Collider myBody, Transform me2 = null)
+    public void Handle(bool inView, bool shooting, Transform target, Transform me, Collider myBody, Transform me2 = null)
     {
-        burstFireDelay -= Time.deltaTime;
+        var dt = inView ? Time.deltaTime : Time.deltaTime / 4f;
+
+        burstFireDelay -= dt;
 
         if (!shooting)
         {
-            burstDelay -= Time.deltaTime;
+            burstDelay -= dt;
             if (burstDelay <= 0f)
             {
                 burstCounter = _getNewBurst();
@@ -49,7 +51,7 @@ public class Weapon
         }
         else if (burstFireDelay <= 0f && burstCounter <= 0)
         {
-            burstDelay -= Time.deltaTime;
+            burstDelay -= dt;
 
             if (burstDelay <= 0)
             {
@@ -92,7 +94,7 @@ public class Weapon
             lastPlayerLocation = target.position;
         }
 
-        estimatedLocation = target.position + (target.position - lastPlayerLocation) * (200f / BulletSpeed);
+        estimatedLocation = target.position + (target.position - lastPlayerLocation) * (500f / Mathf.Sqrt(BulletSpeed));
         lastPlayerLocation = target.position;
 
         var spread = new Vector3(Random.value * Spread, Random.value * Spread, Random.value * Spread);

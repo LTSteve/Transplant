@@ -27,10 +27,14 @@ public class PlayerController : MonoBehaviour, IDamageable
     public AudioSource HurtSource;
 
     public AudioClip Gunshot;
+    public AudioClip SpecialShot;
+    public AudioClip NoAmmo;
 
     public bool IsMoving = false;
 
     public OofBoi Oof;
+
+    public Camera MyCamera;
 
     public bool WindupIsOver = false;
 
@@ -62,7 +66,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if (!WindupIsOver)
+        if (Settings.Active || !WindupIsOver)
         {
             return;
         }
@@ -101,11 +105,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         var up = MouseBoi.DeltaUp;
         var right = MouseBoi.DeltaRight;
 
-        targetRotation.x += up * RotationSpeed;
+        targetRotation.x += up * RotationSpeed * Settings.Sensitivity;
 
         targetRotation.x = Mathf.Clamp(targetRotation.x, -90f, 90f);
 
-        targetRotation.y += right * RotationSpeed;
+        targetRotation.y += right * RotationSpeed * Settings.Sensitivity;
     }
 
     private void HandleJumpInputs()
@@ -132,16 +136,51 @@ public class PlayerController : MonoBehaviour, IDamageable
         currentFallSpeed = Mathf.Clamp(currentFallSpeed, -TerminalVelocity, TerminalVelocity);
     }
 
-    public void DoShoot()
+    public void DoShoot(bool specialShot, bool success)
     {
-        var proj = Instantiate(Projectile, ShootFrom.position, Quaternion.identity);
+        if (!success)
+        {
+            GunSource.PlayOneShot(NoAmmo);
+            return;
+        }
 
-        Physics.IgnoreCollision(proj.GetComponent<Collider>(), GetComponent<Collider>());
+        if (specialShot)
+        {
+            StartCoroutine(DoSpecialBurst());
+            GunSource.PlayOneShot(SpecialShot);
+        }
+        else
+        {
+            var proj = Instantiate(Projectile, ShootFrom.position, Quaternion.identity);
 
-        proj.Friendly = true;
-        proj.Trajectory = camera.forward * ProjectileSpeed;
+            Physics.IgnoreCollision(proj.GetComponent<Collider>(), GetComponent<Collider>());
 
-        GunSource.PlayOneShot(Gunshot);
+            proj.Friendly = true;
+            proj.Trajectory = camera.forward * ProjectileSpeed;
+            GunSource.PlayOneShot(Gunshot);
+        }
+    }
+
+    private IEnumerator DoSpecialBurst()
+    {
+        var spb = Composer.Instance.BeatLength;
+
+        GunSource.PlayOneShot(SpecialShot);
+
+        for (var i = 0; i < 4; i++)
+        {
+
+            var proj = Instantiate(Projectile, ShootFrom.position, Quaternion.identity);
+
+            Physics.IgnoreCollision(proj.GetComponent<Collider>(), GetComponent<Collider>());
+
+            proj.Friendly = true;
+            proj.Trajectory = camera.forward * ProjectileSpeed * 2f;
+            proj.Special = true;
+
+            if(i != 7)
+                yield return new WaitForSeconds(spb / 4f);
+        }
     }
 
     public void Damage()
@@ -175,7 +214,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         WindupIsOver = false;
 
-        textCrawl.Text = "\n then, i died . . .";
+        textCrawl.Text = "\n and I die . . .";
         textCrawl.dead = false;
 
         textCrawl.gameObject.SetActive(true);

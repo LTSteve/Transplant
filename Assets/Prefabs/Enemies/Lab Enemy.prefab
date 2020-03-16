@@ -118,8 +118,8 @@ MonoBehaviour:
   AggroRange: 100
   RunawayRange: 140
   MaxAttackRange: 100
-  Health: 3
-  BossValue: 1
+  Health: 5
+  BossValue: 1.5
   Brain:
     WanderAttentionSpan: 3
   Weapon:

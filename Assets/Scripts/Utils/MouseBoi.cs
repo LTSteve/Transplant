@@ -18,8 +18,6 @@ public class MouseBoi : MonoBehaviour
         }
 
         Instance = this;
-
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void FixedUpdate()

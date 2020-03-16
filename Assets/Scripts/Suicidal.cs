@@ -8,6 +8,10 @@ public class Suicidal : MonoBehaviour
 
     void Update()
     {
+        if (Settings.Active)
+        {
+            return;
+        }
         time -= Time.deltaTime;
 
         if(time <= 0f)
