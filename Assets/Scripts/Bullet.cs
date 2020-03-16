@@ -17,10 +17,27 @@ public class Bullet : MonoBehaviour
 
     private Rigidbody body;
 
+    private float targetRange;
+    private Light light;
+
     private void Start()
     {
+        light = GetComponent<Light>();
+        targetRange = light.range;
+        light.range = 0f;
+
         body = GetComponent<Rigidbody>();
         Init();
+    }
+
+    private void Update()
+    {
+        if(light.range >= targetRange)
+        {
+            return;
+        }
+
+        light.range += targetRange * Time.deltaTime;
     }
 
     public void Init()
@@ -40,6 +57,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Instantiate(Boom, transform.position, Quaternion.identity);
+
         Destroy(this.gameObject);
 
         //do damage

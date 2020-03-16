@@ -23,7 +23,7 @@ public class GunController : MonoBehaviour
             return;
         }
 
-        var isShooting = Input.GetButtonDown("Fire1") || Input.GetButton("Fire1");
+        var isShooting = Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") || Input.GetMouseButtonDown(0) || Input.GetMouseButton(0);
 
         animator.SetBool("Shooting", isShooting);
         animator.SetBool("Moving", PlayerController.Instance.IsMoving);
@@ -46,11 +46,11 @@ public class GunController : MonoBehaviour
     {
         shooting -= Time.deltaTime;
 
-        if (shooting < 0f)
+        if (shooting <= 0f)
         {
             UIController.Instance.UpdateAmmoBlips(-1);
 
-            shooting = (60f / PlayerController.Instance.ShotsPerBeat) / UIController.Instance.BPM;
+            shooting = (60f / PlayerController.Instance.ShotsPerBeat) / Composer.Instance.BPM;
 
             Bam.SetBool("Restart", true);
             PlayerController.Instance.DoShoot();

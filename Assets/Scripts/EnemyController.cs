@@ -20,14 +20,18 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public float Health = 10f;
 
+    public float BossValue = 1f;
+
     public Brain Brain;
     public Weapon Weapon;
+    public SpriteBright Colorizer;
 
     public Transform GroundCheck;
     public float GroundDistance = 0.4f;
     public LayerMask GroundMask;
 
     public Transform ShootFrom;
+    public Transform ShootFrom2 = null;
     public Transform Aim;
 
     public AudioSource MonsterSource;
@@ -35,6 +39,9 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public Animator[] SpriteAnimators;
     public Image[] SpriteImages;
+
+    public AudioClip Cry;
+    public AudioClip Oof;
 
     private CharacterController controller;
 
@@ -53,11 +60,13 @@ public class EnemyController : MonoBehaviour, IDamageable
         Enemies.Add(this);
 
         controller = GetComponent<CharacterController>();
+
+        Weapon.Colorizer = Colorizer;
     }
 
     void Update()
     {
-        if(PlayerController.Instance == null || Dead)
+        if(PlayerController.Instance == null || Dead || !PlayerController.Instance.WindupIsOver)
         {
             return;
         }
@@ -68,13 +77,16 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             triggered = true;
             closeEnough = false;
+            MonsterSource.PlayOneShot(Cry, 1f);
         }
 
         HandleAim();
         HandleMovement();
-        Weapon.Handle(triggered && closeEnough, PlayerController.Instance.transform, ShootFrom, GetComponent<Collider>());
+        Weapon.Handle(triggered && closeEnough, PlayerController.Instance.transform, ShootFrom, GetComponent<Collider>(), ShootFrom2);
         HandlePhysics();
         HandleAnimators();
+
+        HandleColors();
 
         //ShootAnimation
         foreach(var animator in SpriteAnimators)
@@ -92,6 +104,18 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         Aim.localRotation = Quaternion.Euler(targetRotation.x, 0, 0);
         transform.rotation = Quaternion.Euler(0, targetRotation.y, 0);
+    }
+
+    private void HandleColors()
+    {
+        Colorizer.Update();
+
+        var color = Colorizer.GetColor(Vector3.Distance(PlayerController.Instance.transform.position, transform.position));
+
+        foreach(var image in SpriteImages)
+        {
+            image.color = color;
+        }
     }
 
     private void HandleMovement()
@@ -224,22 +248,33 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void Damage()
     {
+        if (Dead)
+        {
+            return;
+        }
+
         Health--;
 
         if(Health <= 0)
         {
             foreach(var animator in SpriteAnimators)
             {
+                MonsterSource.PlayOneShot(Cry, 1f);
                 animator.SetTrigger("Dead");
                 Dead = true;
+
+                WorldGenerator.CurrentBossCountDown -= BossValue;
             }
+            Colorizer.Oof();
         }
         else
         {
             foreach (var animator in SpriteAnimators)
             {
+                MonsterSource.PlayOneShot(Oof, 1f);
                 animator.SetTrigger("Oof");
             }
+            Colorizer.Oof();
         }
     }
 }

@@ -169,17 +169,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 320
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aed847ab63f889941b69db1bce2f0ce2
+      spriteID: 5edea9f54d653c04e93450e5c4780a12
       internalID: -2772336017247295824
       vertices: []
       indices: 
@@ -189,18 +189,18 @@ TextureImporter:
       name: BossBoi_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 320
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 128
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab09b1aedec5e5642b9dfa3c8fdd22ac
+      spriteID: 4f62234da69c76e448a09e3375776f8b
       internalID: -426944571450758309
       vertices: []
       indices: 
@@ -210,18 +210,18 @@ TextureImporter:
       name: BossBoi_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 320
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 256
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53a1651180e314f45a54c5a1d5ef2bb5
+      spriteID: bd63c6e464cefbe448c4576710522239
       internalID: 4344115080320623070
       vertices: []
       indices: 
@@ -233,16 +233,16 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 256
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90411381f4e5a5344ba8e3db249a4d34
+      spriteID: 24f4335d8a537f3429082721fb4ba484
       internalID: -7167066659202860811
       vertices: []
       indices: 
@@ -252,18 +252,18 @@ TextureImporter:
       name: BossBoi_4
       rect:
         serializedVersion: 2
-        x: 64
+        x: 128
         y: 256
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d7d319589045754b8231f5158397ac0
+      spriteID: 2846c71df5de0ca4d85629f69684c4ef
       internalID: -437230782410419817
       vertices: []
       indices: 
@@ -273,18 +273,18 @@ TextureImporter:
       name: BossBoi_5
       rect:
         serializedVersion: 2
-        x: 128
+        x: 256
         y: 256
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40b423ecd24aebf46b5f09a6eb442ed8
+      spriteID: 9921747e9efd46945adb7ef07d40305b
       internalID: 1152853757066089348
       vertices: []
       indices: 
@@ -295,17 +295,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6aba2db88f6c3f429d7dcbb3cfe0de4
+      spriteID: 39d5d5f71635b454d9e5079a1115d0a7
       internalID: 9088433269676128655
       vertices: []
       indices: 
@@ -315,18 +315,18 @@ TextureImporter:
       name: BossBoi_7
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
+        x: 128
+        y: 128
         width: 64
         height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2005a439bf35395418a37d849de3bf82
+      spriteID: e0961c2624976864bbeab4774af944f2
       internalID: -5768123519967928528
       vertices: []
       indices: 
@@ -336,18 +336,18 @@ TextureImporter:
       name: BossBoi_8
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d35dd38b926435b409b849bcf0a7d826
+      spriteID: 61eaa2308033482458b1e2d18be976ea
       internalID: -3442575862704605208
       vertices: []
       indices: 
@@ -358,17 +358,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4170cc0b4481b34aa8f2349c70b61f0
+      spriteID: 5f84766461c0f774c9993ab136a64697
       internalID: 1672105153805723436
       vertices: []
       indices: 
@@ -378,18 +378,18 @@ TextureImporter:
       name: BossBoi_10
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aac8ddf8236eeb846af93562301f29f1
+      spriteID: 2a17a6c5f4fd1734e92832b67bed5558
       internalID: 3122653029061485837
       vertices: []
       indices: 
@@ -399,18 +399,18 @@ TextureImporter:
       name: BossBoi_11
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 395d5574dd1a0494794d920bdbc1e695
+      spriteID: 7ea37f9b2a9ee654d862afb40e0ff396
       internalID: -2028190800049836733
       vertices: []
       indices: 
@@ -420,18 +420,18 @@ TextureImporter:
       name: BossBoi_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 128
+        y: 192
         width: 64
         height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 669dd9430b2eadf46afb40f713190dbe
+      spriteID: d1e8ccacd0dab1f4c9640f777680c0f2
       internalID: -4539389791018887463
       vertices: []
       indices: 
@@ -441,18 +441,18 @@ TextureImporter:
       name: BossBoi_13
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 192
+        y: 192
         width: 64
         height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e77cf06112ac5d145969de7d680390b1
+      spriteID: 3f91a93325b742d46ab59eb5b777449d
       internalID: 3506494244464457232
       vertices: []
       indices: 
@@ -462,40 +462,19 @@ TextureImporter:
       name: BossBoi_14
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 192
+        y: 128
         width: 64
         height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f71f4cbbd2a40594bbe3a7db5efa738f
+      spriteID: 54ff9ba2e604ef44083b7eddf9035a07
       internalID: 8470711370353648469
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BossBoi_15
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 30f6377ab9f8dcb44bb4184aaf783add
-      internalID: -8211864418973053516
       vertices: []
       indices: 
       edges: []

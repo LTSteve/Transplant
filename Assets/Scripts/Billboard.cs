@@ -16,6 +16,8 @@ public class Billboard : MonoBehaviour
 
     protected virtual void Update()
     {
-        transform.rotation = camera.transform.rotation * originalRotation;
+        var rotation = camera.transform.rotation.eulerAngles;
+
+        transform.rotation = Quaternion.Euler(0, rotation.y, 0) * originalRotation;
     }
 }

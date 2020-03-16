@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
-
     public static PlayerController Instance = null;
 
     public float MoveSpeed = 10f;
@@ -24,12 +23,16 @@ public class PlayerController : MonoBehaviour, IDamageable
     public Bullet Projectile;
     public Transform ShootFrom;
 
-    public AudioSource SoundtrackSource;
     public AudioSource GunSource;
+    public AudioSource HurtSource;
 
     public AudioClip Gunshot;
 
     public bool IsMoving = false;
+
+    public OofBoi Oof;
+
+    public bool WindupIsOver = false;
 
     private CharacterController controller;
     private Transform camera;
@@ -39,6 +42,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Vector3 targetRotation = new Vector3();
     public float currentFallSpeed = 0f;
     private bool isGrounded;
+
+    private float invulnFrames = 0f;
 
     void Start()
     {
@@ -52,10 +57,18 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         controller = GetComponent<CharacterController>();
         camera = Camera.main.transform;
+
     }
 
     void Update()
     {
+        if (!WindupIsOver)
+        {
+            return;
+        }
+
+        invulnFrames -= Time.deltaTime;
+
         HandleKeyboardInputs();
         HandleMouseInputs();
         HandleJumpInputs();
@@ -133,6 +146,38 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void Damage()
     {
-        //throw new System.NotImplementedException();
+        if(invulnFrames > 0)
+        {
+            HurtSource.Play();
+            return;
+        }
+
+        UIController.Instance.UpdateAmmoBlips(-1);
+        Oof.Oof();
+        HurtSource.Play();
+
+        invulnFrames = 0.05f;
+    }
+
+    public void Died()
+    {
+        var textCrawl = TextCrawl.Instance;
+
+        if(textCrawl == null)
+        {
+            return;
+        }
+
+        if (textCrawl.gameObject.activeSelf)
+        {
+            return;
+        }
+
+        WindupIsOver = false;
+
+        textCrawl.Text = "\n then, i died . . .";
+        textCrawl.dead = false;
+
+        textCrawl.gameObject.SetActive(true);
     }
 }
